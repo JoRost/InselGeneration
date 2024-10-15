@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c70580f8bd11a4887e10920012cab3, type: 3}
   m_Name: Gras
   m_EditorClassIdentifier: 
-  tiles:
-  - {fileID: 718362789, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
-  - {fileID: 392554101, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
-  - {fileID: -426153479, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
-  - {fileID: -123995489, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
-  - {fileID: 248403901, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
-  ruleTile: {fileID: 11400000, guid: db9d86e6d83fc9f47b2f8572bdefd4e5, type: 2}
+  ruleTile: {fileID: 11400000, guid: 4696aed3e2f9dff4ab80690a32687b4e, type: 2}
   minHight: 0.3
-  minMoisture: 0
+  id: 2

@@ -4,22 +4,29 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Presets;
 using UnityEngine.Tilemaps;
+using UnityEditor.UI;
 
 [CreateAssetMenu(fileName = "Biome Preset", menuName = "New Binome Preset")]
 public class BinomePreset : ScriptableObject
 {
-    public Sprite[] tiles;
     public RuleTile ruleTile;
     public float minHight;
-    public float minMoisture;
+    public int id;
 
     public RuleTile GetTile(){
-        // return tiles[Random.Range(0, tiles.Length)];
         return ruleTile;
     }
 
-    public bool matchesConditions(float height, float moisture){
-        return height >= minHight && moisture >= minMoisture;
+    public string GetBinomeType(){
+        return this.name;
+    }
+
+    public int GetID(){
+        return id;
+    }
+
+    public bool matchesConditions(float height){
+        return height >= minHight;
     }
 }
 
@@ -30,7 +37,7 @@ public class BinomeTempData{
         binome = preset;
     }
 
-    public float GetDiffValue(float height, float moisture){
-        return ((height - binome.minHight) + (moisture - binome.minMoisture));
+    public float GetDiffValue(float height){
+        return (height - binome.minHight);
     }
 }

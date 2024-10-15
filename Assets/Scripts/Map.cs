@@ -1,15 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+// using System.Text;
 
 public class Map : MonoBehaviour
 {
-    public BinomePreset[] biomes;
-    public GameObject tilePrefab;
-    public Tilemap tilemap;
-    
-    private List<GameObject> tileList = new List<GameObject>(); 
+    public TilemapPreset[] tileMapPresets;
 
     [Header("Dimensions")]
     public int width = 50;
@@ -21,22 +21,38 @@ public class Map : MonoBehaviour
     public Wave[] heightWaves;
     public float[,] heightMap;
 
-    [Header("Moisture Map")]
-    public Wave[] moistureWaves;
-    public float[,] moistureMap;
+    private int[,] tileMapData;
 
     void GenerateMap(){
         heightMap = NoiseGenerator.GenerateCircleNoiseMap(width, height, scale, heightWaves, offset);
-        moistureMap = NoiseGenerator.GenerateNoiseMap(width, height, scale, moistureWaves, offset);
+        tileMapData = new int[width, height];
 
-        for(int x = 0; x < width; ++x){
-            for(int y = 0; y < height; ++y){
-                tilemap.SetTile(new Vector3Int(x, y, 0), GetBinome(heightMap[x, y], moistureMap[x, y]).GetTile());
-                // GameObject tile = Instantiate(tilePrefab, new Vector3(x, y, 0), Quaternion.identity);
-                // tile.GetComponent<SpriteRenderer>().sprite = GetBinome(heightMap[x, y], moistureMap[x, y]).GetTileSprite();
-                // tileList.Add(tile);
+        foreach(TilemapPreset tilemapPreset in tileMapPresets){
+            tilemapPreset.createTilemap();
+            for(int x = 0; x < width; ++x){
+                for(int y = 0; y < height; ++y){
+                    int lowerBiome = tileMapData[x, y] != 0 ? tileMapData[x, y] : -1;
+                    BinomePreset currentBiome = GetBinome(heightMap[x, y], tilemapPreset.GetBinomes(), tilemapPreset.matchesConditions(lowerBiome));
+
+                    if(currentBiome != null){
+                        tilemapPreset.GetTilemap().SetTile(new Vector3Int(x, y, 0), currentBiome.GetTile());
+                        tileMapData[x, y] = currentBiome.GetID();
+                    }
+                }
             }
         }
+        
+        // StringBuilder sb = new StringBuilder();
+        // for(int i=0; i< tileMapData.GetLength(1); i++)
+        // {
+        //     for(int j=0; j<tileMapData.GetLength(0); j++)
+        //     {
+        //         sb.Append(tileMapData[i,j]);
+        //         sb.Append(' ');				   
+        //     }
+        //     sb.AppendLine();
+        // }
+        // Debug.Log(sb.ToString());
     }
 
     private void Start() {
@@ -46,18 +62,15 @@ public class Map : MonoBehaviour
 
     [ContextMenu("Regenerate Map")]
     void RegenerateMap(){
-        tilemap.ClearAllTiles();	
-        // foreach(GameObject tile in tileList){
-        //    Destroy(tile);
-        // }
+        foreach(TilemapPreset tilemapPreset in tileMapPresets){tilemapPreset.GetTilemap().ClearAllTiles();}
         GenerateMap();
     } 
 
-    private BinomePreset GetBinome(float height, float moisture){
+    private BinomePreset GetBinome(float height, BinomePreset[] biomes, bool canBePlacedOnLower){
         List <BinomeTempData> binomeTemp = new List<BinomeTempData>();
 
         foreach(BinomePreset binome in biomes){
-            if(binome.matchesConditions(height, moisture)){
+            if(binome.matchesConditions(height) && canBePlacedOnLower){
                 binomeTemp.Add(new BinomeTempData(binome));
             }
         }
@@ -67,16 +80,14 @@ public class Map : MonoBehaviour
         foreach(BinomeTempData binome in binomeTemp){
             if(binomeToReturn == null){
                 binomeToReturn = binome.binome;
-                curVal = binome.GetDiffValue(height, moisture);
+                curVal = binome.GetDiffValue(height);
             } else {
-                if(binome.GetDiffValue(height, moisture) < curVal){
+                if(binome.GetDiffValue(height) < curVal){
                     binomeToReturn = binome.binome;
-                    curVal = binome.GetDiffValue(height, moisture);
+                    curVal = binome.GetDiffValue(height);
                 }
             }
         }
-
-        if(binomeToReturn == null) binomeToReturn = biomes[0];
 
         return binomeToReturn;
     }

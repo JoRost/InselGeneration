@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f91fdd1b5179f40a800530d9900ac4, type: 3}
+  m_Name: Map
+  m_EditorClassIdentifier: 
+  biomes:
+  - {fileID: 11400000, guid: c62ce59f6f008d643ba0902e4098442a, type: 2}
+  - {fileID: 11400000, guid: 4823c57f4b4dada46bc4af3ae0d9546e, type: 2}
+  - {fileID: 11400000, guid: d6be1411fa9b0804980cc7592ff0a6fb, type: 2}
+  allowedLowerBiomes: 
+  tilemap: {fileID: 0}

@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &9692212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9692214}
+  - component: {fileID: 9692213}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!156049354 &9692213
+Grid:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9692212}
+  m_Enabled: 1
+  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellLayout: 0
+  m_CellSwizzle: 0
+--- !u!4 &9692214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9692212}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,12 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5236ac4b13b9349459fe0f1b5ec84eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  biomes:
-  - {fileID: 11400000, guid: c62ce59f6f008d643ba0902e4098442a, type: 2}
-  - {fileID: 11400000, guid: 4823c57f4b4dada46bc4af3ae0d9546e, type: 2}
-  - {fileID: 11400000, guid: 813a22860cf1fb34980d28af38e4e9c7, type: 2}
-  - {fileID: 11400000, guid: d6be1411fa9b0804980cc7592ff0a6fb, type: 2}
-  tilePrefab: {fileID: 8985493251499873563, guid: 6e76612f08892c54da596bd3875aef6b, type: 3}
+  tileMapPresets:
+  - {fileID: 11400000, guid: 5c446885ed8376940bedd0b31e659d04, type: 2}
+  - {fileID: 11400000, guid: 044159fbaa879e149bd1ae3def8f96f3, type: 2}
   width: 100
   height: 100
   scale: 1
@@ -387,10 +428,6 @@ MonoBehaviour:
   - seed: 56
     frequency: 0.01
     amplitude: 0.3
-  moistureWaves:
-  - seed: 621
-    frequency: 0.03
-    amplitude: 1
 --- !u!4 &788916582
 Transform:
   m_ObjectHideFlags: 0
@@ -413,3 +450,4 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 788916582}
+  - {fileID: 9692214}
