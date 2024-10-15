@@ -18,5 +18,6 @@ MonoBehaviour:
   - {fileID: -426153479, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
   - {fileID: -123995489, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
   - {fileID: 248403901, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
+  ruleTile: {fileID: 11400000, guid: db9d86e6d83fc9f47b2f8572bdefd4e5, type: 2}
   minHight: 0.3
   minMoisture: 0

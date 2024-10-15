@@ -7,6 +7,7 @@ public class Map : MonoBehaviour
 {
     public BinomePreset[] biomes;
     public GameObject tilePrefab;
+    public Tilemap tilemap;
     
     private List<GameObject> tileList = new List<GameObject>(); 
 
@@ -30,9 +31,10 @@ public class Map : MonoBehaviour
 
         for(int x = 0; x < width; ++x){
             for(int y = 0; y < height; ++y){
-                GameObject tile = Instantiate(tilePrefab, new Vector3(x, y, 0), Quaternion.identity);
-                tile.GetComponent<SpriteRenderer>().sprite = GetBinome(heightMap[x, y], moistureMap[x, y]).GetTileSprite();
-                tileList.Add(tile);
+                tilemap.SetTile(new Vector3Int(x, y, 0), GetBinome(heightMap[x, y], moistureMap[x, y]).GetTile());
+                // GameObject tile = Instantiate(tilePrefab, new Vector3(x, y, 0), Quaternion.identity);
+                // tile.GetComponent<SpriteRenderer>().sprite = GetBinome(heightMap[x, y], moistureMap[x, y]).GetTileSprite();
+                // tileList.Add(tile);
             }
         }
     }
@@ -44,9 +46,10 @@ public class Map : MonoBehaviour
 
     [ContextMenu("Regenerate Map")]
     void RegenerateMap(){
-        foreach(GameObject tile in tileList){
-           Destroy(tile);
-        }
+        tilemap.ClearAllTiles();	
+        // foreach(GameObject tile in tileList){
+        //    Destroy(tile);
+        // }
         GenerateMap();
     } 
 

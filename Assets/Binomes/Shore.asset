@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: -1292424109, guid: eff54a3c1665ee74196c1898107991cc, type: 3}
+  ruleTile: {fileID: 11400000, guid: 9036dbf29619d314f9e07f6562530ff7, type: 2}
   minHight: 0.24
   minMoisture: 0
